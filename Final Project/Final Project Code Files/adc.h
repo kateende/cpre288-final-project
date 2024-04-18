@@ -16,6 +16,7 @@
 
 void adc_init(void);
 uint16_t adc_read(void);
+int raw_to_digital(uint16_t raw_ir);
 
 
 
