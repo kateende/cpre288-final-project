@@ -160,45 +160,39 @@ double move_forward_avoid(oi_t *sensor_data, double distance_mm) {
 
         //object detect
         if(sensor_data -> bumpRight) {
-            oi_setWheels(0, 0);
-            move_backward(sensor_data, 150);
-            turn_left(sensor_data, 90);
-            move_forward(sensor_data, 250);
-            turn_right(sensor_data, 90);
+            load_songs(1);
+            uart_sendStr("BumpRight!");
+            break;
 
         }
         if(sensor_data -> bumpLeft) {
-            oi_setWheels(0, 0);
-            move_backward(sensor_data, 150);
-            turn_right(sensor_data, 90);
-            move_forward(sensor_data, 250);
-            turn_left(sensor_data, 90);
+            load_songs(1);
+            uart_sendStr("BumpLeft!");
+            break;
         }
 
         if ((sensor_data->cliffRightSignal) > 2600) {
-            turn_left(sensor_data, 20);
-            move_forward(sensor_data, 10);
+            load_songs(3);
+            uart_sendStr("CliffRight!");
             break;
         }
 
         if (sensor_data->cliffLeftSignal > 2600) {
-            turn_right(sensor_data, 20);
-            move_forward(sensor_data, 10);
+            load_songs(3);
+            uart_sendStr("CliffLeft!");
             break;
         }
         if (sensor_data->cliffFrontRightSignal > 2600) {
-            turn_left(sensor_data, 40);
-            move_forward(sensor_data, 10);
+            load_songs(3);
+            uart_sendStr("CliffFrontLeft!");
             break;
         }
 
         if (sensor_data->cliffFrontLeftSignal > 2600) {
-            turn_right(sensor_data, 40);
-            move_forward(sensor_data, 10);
+            load_songs(3);
+            uart_sendStr("CliffFrontRight!");
             break;
         }
-
-        oi_setWheels(100,100);
 
     }
     oi_setWheels(0, 0);

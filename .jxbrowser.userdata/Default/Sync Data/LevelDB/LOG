@@ -1,2 +1,3 @@
-2024/04/17-19:07:15.469 42f8 Creating DB U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\Sync Data\LevelDB since it was missing.
-2024/04/17-19:07:27.524 42f8 Reusing MANIFEST U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\Sync Data\LevelDB/MANIFEST-000001
+2024/04/28-14:33:54.458 2694 Reusing MANIFEST U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\Sync Data\LevelDB/MANIFEST-000001
+2024/04/28-14:33:54.465 2694 Recovering log #3
+2024/04/28-14:33:54.466 2694 Reusing old log U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\Sync Data\LevelDB/000003.log 

@@ -1,2 +1,3 @@
-2024/04/17-19:07:27.543 4158 Creating DB U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\shared_proto_db since it was missing.
-2024/04/17-19:07:27.638 4158 Reusing MANIFEST U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\shared_proto_db/MANIFEST-000001
+2024/04/28-14:33:54.536 3514 Reusing MANIFEST U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\shared_proto_db/MANIFEST-000001
+2024/04/28-14:33:54.545 3514 Recovering log #3
+2024/04/28-14:33:54.549 3514 Reusing old log U:\CprE288Workspace\cpre288-final-project\.jxbrowser.userdata\Default\shared_proto_db/000003.log 

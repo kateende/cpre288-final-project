@@ -32,6 +32,20 @@
 extern volatile char command_byte; // byte value for special character used as a command
 extern volatile int command_flag; // flag to tell the main program a special command was received
 
+enum RecChar {
+    NONE,
+    SCAN,
+    FORWARD,
+    BACKWARD,
+    LEFT,
+    RIGHT,
+    LEFT90,
+    RIGHT90,
+    FINISH
+};
+
+extern volatile enum RecChar enteredKey;
+
 // UART1 device initialization for CyBot to PuTTY
 void uart_interrupt_init(void);
 

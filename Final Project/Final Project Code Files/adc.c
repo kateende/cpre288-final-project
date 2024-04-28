@@ -42,7 +42,8 @@ int raw_to_digital(uint16_t raw_ir) {
 
     //cybot 7: 2940000 * pow(raw_ir, -1.6);
     //b1's cybot: 20000000 * (pow(raw_ir, -1.882))
-    return 2940000 * pow(raw_ir, -1.6);;
+    //vybot 3: 8000000 * (pow(raw_ir, -1.71))
+    return 8000000 * (pow(raw_ir, -1.71));
 
 
 }
