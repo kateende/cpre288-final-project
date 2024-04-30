@@ -31,7 +31,7 @@ void TIMER3B_Handler(void);
  *
  * @return Distance in cm
  */
-uint32_t ping_getDistance (void);
+float ping_getDistance (void);
 
 int isOverflow(void);
 

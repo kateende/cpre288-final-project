@@ -15,12 +15,13 @@
 
 typedef struct
 {
-    uint32_t sound_dist; // Distance from PING sensor (Scan returns -1.0 if PING is not enabled)
+    float sound_dist; // Distance from PING sensor (Scan returns -1.0 if PING is not enabled)
     uint16_t IR_raw_val; // Raw ADC value from IR sensor (Scan returns -1 if IR is not enabled)
 } Scan_t;
 
 
 void main()
+
 {
     //Network password?; cpre288bsk
     oi_t *sensor_data = oi_alloc(); // do this only once at start of main()
@@ -56,7 +57,7 @@ void main()
         else if(enteredKey == BACKWARD) {
             uart_sendStr("Backward\n\r");
             enteredKey = NONE;
-           move_backward(sensor_data, 200);
+            move_backward(sensor_data, 200);
         }
         else if(enteredKey == RIGHT) {
             uart_sendStr("Right\n\r");
@@ -91,116 +92,28 @@ void main()
 
 void runScan() {
 
-    typedef struct
-    {
-        int angle;
-        float distance;
-        int width;
-        float arcwidth;
-    } cyBOT_Object_t;
+
 
     Scan_t scan;
 
-    cyBOT_Object_t objects[50];
-    memset(objects, 0, sizeof objects);
 
-    int object_detected = 0;
-    int current_object = 0;
-    int start_angle = 0;
-    int end_angle = 0;
-    float min_dist = 0;
+
     double IR_cm;
     int i = 0;
     int m;
     char message[250];
-    int cutoff = 0;
-    char scanvalue[250];
 
-
+    uart_sendStr("Angle(Degrees) Distance(m)\n\r");
     for (i = 0; i <= 180; i += 1)
     {
 
         Scan(i, &scan);
         m = scan.IR_raw_val;
         IR_cm = (1.63E7) * (pow(m, -1.91));
-        sprintf(message, "$d\t%f\n\r", i, IR_cm);
+        sprintf(message, "%d\t%f\n\r", i, (IR_cm / 100.0));
         uart_sendStr(message);
-        if (!object_detected)
-        {
-            if (IR_cm < 60)
-            {
-                if(i == 0){
-                    cutoff == 1;
-                }
-                object_detected = 1;
-                start_angle = i;
-                min_dist = IR_cm;
-
-            }
-        }
-        // Objects cutoff on edges are not being detected properly
-        else
-        {
-            if (IR_cm < min_dist)
-            {
-                min_dist = IR_cm;
-            }
-
-            if (IR_cm > 60 || i == 180)
-            {
-
-                object_detected = 0;
-                end_angle = i - 1;
-                objects[current_object].angle = (end_angle + start_angle)
-                                        / 2;
-                objects[current_object].distance = min_dist;
-                if(cutoff == 1){
-                    objects[current_object].width = 50;
-                }
-                else{
-                    objects[current_object].width = end_angle - start_angle;
-                }
-                if (i == 180)
-                {
-                    objects[current_object].width = 300;
-                }
-                current_object += 1;
-            }
-        }
     }
 
-    int j = 0;
-    int number = 1;
-    int min_width = 999999;
-    int min_width_index = 0;
-    int obstacle_left = 0;
-    int obstacle_right = 0;
-    float perp_distance[50];
-    memset(perp_distance, 0, sizeof perp_distance);
-    for (j = 0; j < current_object; j++)
-    {
-        if (objects[j].width > 5)
-        {
-            objects[j].arcwidth = (2 * 3.1415926535 * objects[j].distance
-                    * objects[j].width) / 360;
-            // Width is not accurate atm, could be calibration issue
-            // Test objects are not meeting specs given in problem statement (Problem statement specifies 6 in, currently at 4.5 in)
-            perp_distance[j] = cos((objects[j].angle) * 3.1415926535 / 180)* objects[j].distance;
-
-            sprintf(scanvalue,
-                    "Object %d is %f cm away with a width of %f cm and at an angle of %d\nPerp distance = %f cm\nObstacle left:%d\nObstacle right:%d\n\r",
-                    number++, objects[j].distance, objects[j].arcwidth,
-                    objects[j].angle, perp_distance[j], obstacle_left,
-                    obstacle_right);
-
-            uart_sendStr(scanvalue);
-            if ((objects[j].arcwidth) < min_width)
-            {
-                min_width = objects[j].arcwidth;
-                min_width_index = j;
-            }
-        }
-    }
 
 }
 
@@ -216,5 +129,5 @@ void Scan(uint16_t angle, Scan_t *getScan)
     }
 
     getScan->IR_raw_val = total/n;
-   // getScan->sound_dist = ping_getDistance();
+    //getScan->sound_dist = ping_getDistance();
 }
